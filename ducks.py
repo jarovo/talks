@@ -1,4 +1,4 @@
-from typing import Protocol
+from typing import Protocol, overload, Union, Optional
 from abc import abstractmethod, ABCMeta
 
 
@@ -40,10 +40,19 @@ class BrokenDuck:
         return object()
 
 
-def use_as_duck(duck: CanQuack):
+def use_qacking_thing(duck: CanQuack):
     return duck.talk()
 
 
-use_as_duck(Duck())
-use_as_duck(Lure())
-use_as_duck(BrokenDuck())
+def deref_none(duck: Optional[Duck]):
+    if duck is None:
+        return Quack(1)
+    duck.talk()
+
+
+deref_none(None)
+
+use_qacking_thing(Duck())
+use_qacking_thing(Lure())
+#use_qacking_thing(BrokenDuck())
+
